@@ -1,0 +1,41 @@
+::ng-deep .ant-table-body::-webkit-scrollbar{
+  width: 6px;
+  height: 1px;
+}
+::ng-deep .ant-table-body::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background: #cccccc;
+}
+::ng-deep .ant-table-body::-webkit-scrollbar-track{
+    border-radius: 10px;
+    background: #ededed;
+}
+
+::ng-deep .ant-table-header{
+  overflow: hidden !important;
+  margin-bottom: 0 !important;
+  /* height: 34px; */
+}
+
+.content {
+  height: 32px;
+  background: #1890ff;
+}
+
+.titleFont {
+  font-size: 20px;
+  margin-left: 28px;
+  margin-top: 16px;
+}
+
+::ng-deep .ant-modal-body{
+  padding: 0;
+}
+
+::ng-deep .ant-modal-close-x {
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  margin-top: -10px;
+  margin-right: 8px;
+}

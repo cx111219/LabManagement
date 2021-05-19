@@ -1,0 +1,9 @@
+.search__form {
+  background: #fafafa;
+  padding: 20px 20px 0 10px;
+  margin-bottom: 20px;
+}
+
+::ng-deep .search__form .ant-form-item {
+  ​margin-bottom: 20px;
+}

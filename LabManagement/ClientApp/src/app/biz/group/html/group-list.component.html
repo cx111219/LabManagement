@@ -1,0 +1,126 @@
+﻿<page-header title="我的班级"></page-header>
+<nz-card [nzBordered]="false">
+    <form autocomplete="off" class="search__form" nz-form="" nzLayout="inline">
+        <div nz-row="" [nzGutter]="32">
+            <div nz-col="" [nzSpan]="6">
+                <nz-form-item>
+                    <nz-form-label> 班级名称</nz-form-label>
+                    <nz-form-control>
+                        <x-textbox name="name" [(model)]="queryParam.name"></x-textbox>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col="" [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label> 班级编号</nz-form-label>
+                    <nz-form-control>
+                        <x-textbox name="code" [(model)]="queryParam.code"></x-textbox>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div  nz-col="" [nzSpan]="4">
+                <nz-form-item>
+                    <nz-form-label> 指导老师</nz-form-label>
+                    <nz-form-control>
+                        <x-select name="userId" url="/api/user/Items?roleCode=teacher" [(model)]="queryParam.userId"></x-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            
+            <div nz-col=""  [nzSpan]="4">
+                <x-button #btnQuery="" (onClick)="query(btnQuery)" color="primary" text="查询">
+                    <ng-template><i nz-icon="" nzType="search"></i></ng-template>
+                </x-button>
+                <x-button #btnRefresh="" (onClick)="refresh(btnRefresh)" class="mx-sm" text="刷新">
+                    <ng-template><i nz-icon="" nzType="sync"></i></ng-template>
+                </x-button>
+            </div>
+
+            <!-- <div nz-col="" [class.text-right]="expand" [nzSpan]="8">
+              <x-button #btnQuery="" (onClick)="query(btnQuery)" color="primary" text="查询">
+                  <ng-template><i nz-icon="" nzType="search"></i></ng-template>
+              </x-button>
+              <x-button #btnRefresh="" (onClick)="refresh(btnRefresh)" class="mx-sm" text="刷新">
+                  <ng-template><i nz-icon="" nzType="sync"></i></ng-template>
+              </x-button>
+              <a (click)="expand=!expand">
+                  <i class="anticon" [class.anticon-down]="!expand" [class.anticon-up]="expand"></i>
+              </a>
+          </div> -->
+        </div>
+    </form>
+    <x-button (onClick)="openCreateDialog()" class="mr-sm" color="primary" text="创建班级">
+        <ng-template><i nz-icon="" nzType="plus"></i></ng-template>
+    </x-button>
+    <x-button #btnDelete="" (onClick)="delete(btnDelete)" color="danger" text="删除">
+        <ng-template><i nz-icon="" nzType="delete"></i></ng-template>
+    </x-button>
+    <nz-alert class="my-md" nzType="info" [nzMessage]="m_cdffdd199ca84659833814b02201fddd" [nzShowIcon]="true">
+        <ng-template #m_cdffdd199ca84659833814b02201fddd="">
+            已选择<strong class="text-primary mx-md">{{getCheckedLength()}}</strong>行
+        </ng-template>
+    </nz-alert>
+    <nz-table-wrapper #tablegroup_wrapper="" baseUrl="group" [(queryParam)]="queryParam">
+        <nz-table #tablegroup="" (nzPageIndexChange)="tablegroup_wrapper.pageIndexChange($event)"
+            (nzPageSizeChange)="tablegroup_wrapper.pageSizeChange($event)"
+            [(nzPageIndex)]="tablegroup_wrapper.queryParam.page"
+            [(nzPageSize)]="tablegroup_wrapper.queryParam.pageSize" [nzData]="tablegroup_wrapper.dataSource"
+            [nzFrontPagination]="false" [nzLoading]="tablegroup_wrapper.loading"
+            [nzShowPagination]="tablegroup_wrapper.showPagination" [nzShowQuickJumper]="true"
+            [nzShowSizeChanger]="true" [nzShowTotal]="template_tablegroup"
+            [nzTotal]="tablegroup_wrapper.totalCount">
+            <thead>
+                <tr>
+                    <th (nzCheckedChange)="tablegroup_wrapper.masterToggle()" nzWidth="30px"
+                        [nzChecked]="tablegroup_wrapper.isMasterChecked()"
+                        [nzDisabled]="!tablegroup_wrapper.dataSource.length"
+                        [nzIndeterminate]="tablegroup_wrapper.isMasterIndeterminate()"
+                        [nzShowCheckbox]="tablegroup_wrapper.multiple">{{tablegroup_wrapper.multiple?'':'单选'}}
+                    </th>
+                    <th nzWidth="70px">序号</th>
+                    <th>班级名称</th>
+                    <th>班级编号</th>
+                    <th>指导老师</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of tablegroup.data;index as index">
+                    <td (click)="$event.stopPropagation()"
+                        (nzCheckedChange)="tablegroup_wrapper.checkedSelection.toggle(row)"
+                        [nzChecked]="tablegroup_wrapper.checkedSelection.isSelected(row)"
+                        [nzShowCheckbox]="tablegroup_wrapper.multiple"><label (click)="$event.stopPropagation()"
+                            (ngModelChange)="tablegroup_wrapper.checkRowOnly(row)"
+                            *ngIf="!tablegroup_wrapper.multiple" name="radio_tablegroup" nz-radio=""
+                            [ngModel]="tablegroup_wrapper.checkedSelection.isSelected(row)"></label></td>
+                    <td>{{ row.lineNumber }}</td>
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.code }}</td>
+                    <td>{{ row.teacherName }}</td>
+                    <td>{{ row.creationTime | date:"yyyy-MM-dd HH:mm:ss" }}</td>
+                    <td>
+                        <!-- <x-button (onClick)="openCourseDialog(row)" class="mr-sm" color="primary" shape="circle" tooltip="课程设置">
+                            <ng-template><i nz-icon="" nzType="book"></i></ng-template>
+                          </x-button> -->
+                        <x-button (onClick)="openUserDialog(row)" class="mr-sm" color="primary" shape="circle" tooltip="学生设置">
+                            <ng-template><i nz-icon="" nzType="user"></i></ng-template>
+                          </x-button>
+                        <x-button (onClick)="openEditDialog(row)" class="mr-sm" color="primary" shape="circle"
+                            tooltip="编辑">
+                            <ng-template><i nz-icon="" nzType="edit"></i></ng-template>
+                        </x-button>
+                        <x-button (onClick)="delete(null,row.id)" class="mr-sm" color="danger" shape="circle"
+                            tooltip="删除">
+                            <ng-template><i nz-icon="" nzType="delete"></i></ng-template>
+                        </x-button>
+                        <x-button (onClick)="openDetailDialog(row)" shape="circle" tooltip="详情">
+                            <ng-template><i nz-icon="" nzType="eye"></i></ng-template>
+                        </x-button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <ng-template #template_tablegroup="" let-range="range" let-total="">{{ range[0] }}-{{ range[1] }} 共{{ total }} 条</ng-template>
+    </nz-table-wrapper>
+</nz-card>

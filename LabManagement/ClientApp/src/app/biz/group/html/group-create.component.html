@@ -1,0 +1,38 @@
+﻿<!-- <page-header title="创建班级" [autoBreadcrumb]="false"></page-header> -->
+<div class="content"></div>
+<h3 class="titleFont">创建班级</h3>
+<nz-card [nzBordered]="false" class="card">
+  <form #form="ngForm" autocomplete="off" nz-form="">
+    <nz-form-item [nzGutter]="16">
+      <nz-form-label [nzSpan]="4" [nzRequired]="true" class="label">班级名称</nz-form-label>
+      <nz-form-control [nzSpan]="19">
+        <x-textbox name="name" [(model)]="model.name" [maxLength]="200" [required]="true"></x-textbox>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item [nzGutter]="16">
+      <nz-form-label [nzSpan]="4" class="label">班级编号</nz-form-label>
+      <nz-form-control [nzSpan]="19">
+        <x-textbox name="code" [(model)]="model.code" [maxLength]="200"></x-textbox>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item [nzGutter]="16">
+      <nz-form-label [nzSpan]="4" [nzRequired]="true" class="label">指导老师</nz-form-label>
+      <nz-form-control [nzSpan]="19">
+        <x-select name="userId" url="/api/user/Items?roleCode=teacher" [(model)]="model.userId" [required]="true">
+        </x-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item [nzGutter]="16">
+      <nz-form-label [nzSpan]="4" class="label">说明</nz-form-label>
+      <nz-form-control [nzSpan]="19">
+        <x-textarea name="remark" [(model)]="model.remark" [maxLength]="3000" [minRows]=3></x-textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nzJustify="end" nzType="flex" [nzGutter]="16">
+      <nz-form-control class="w-auto" [nzSpan]="19" class="footer">
+        <x-button #btnSubmit="" (onClick)="submit(form,btnSubmit)" color="primary" [validateForm]="true"></x-button>
+        <x-button (onClick)="close()" class="mr-sm" text="取消" class="footerBtnCancel"></x-button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

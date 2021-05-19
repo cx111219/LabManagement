@@ -1,0 +1,58 @@
+﻿<page-header title="班级详情" [autoBreadcrumb]="false"></page-header>
+<nz-card [nzBordered]="false">
+    <nz-descriptions [nzBordered]="true" [nzColumn]="2">
+        <nz-descriptions-item nzTitle="班级名称">{{ model.name }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="班级编号">{{ model.code }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="指导老师">{{ model.teacherName }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="创建时间">{{ model.creationTime | date:"yyyy-MM-dd HH:mm:ss" }}
+        </nz-descriptions-item>
+        <!--<nz-descriptions-item nzTitle="创建人" >{{ model.creatorName}}</nz-descriptions-item>-->
+        <nz-descriptions-item nzTitle="说明" >{{ model.remark }}</nz-descriptions-item>
+    </nz-descriptions>
+</nz-card>
+
+<!--
+<page-header title="学员列表" [autoBreadcrumb]="false"></page-header>
+<nz-card [nzBordered]="false">
+    <nz-table-wrapper><nz-table #tableSubject [nzData]="" [nzFrontPagination]="false" [nzShowPagination]="false"><thead><tr>
+    <th nzWidth="70px">序号</th>
+    <th>用户名</th>
+    <th>手机号</th>
+    <th>电子邮箱</th>
+    <th>启用</th>
+  </tr></thead>
+    <tbody>
+    <tr *ngFor="let row of tableSubject.data;index as index">
+      <td>{{row.lineNumber}}</td>
+      <td>{{ row.name }}</td>
+      <td>{{ row.phoneNumber }}</td>
+      <td>{{ row.email }}</td>
+      <td>{{ row.enabled }}</td>
+    </tr></tbody></nz-table></nz-table-wrapper>
+</nz-card>
+
+<page-header title="已选课程" [autoBreadcrumb]="false"></page-header>
+<nz-card [nzBordered]="false">
+  <nz-table-wrapper #tableCourse_wrapper="">
+    <nz-table #tableCourse [nzData]="coursesDatasource" [nzFrontPagination]="false" [nzShowPagination]="false">
+      <thead>
+      <tr>
+        <th nzWidth="70px">序号</th>
+        <th>课程名称</th>
+        <th>课程编码</th>
+        <th>创建时间</th>
+        <th>创建人</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of tableCourse.data;index as index">
+        <td>{{ row.lineNumber }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.code }}</td>
+        <td>{{ row.creationTime | date:"yyyy-MM-dd HH:mm:ss" }}</td>
+        <td>{{ row.creationUserName}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </nz-table-wrapper>
+</nz-card>-->
